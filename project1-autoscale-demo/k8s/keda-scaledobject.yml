@@ -1,0 +1,35 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: autoscale-demo-keda
+  namespace: project1-autoscale-demo
+spec:
+  scaleTargetRef:
+    name: autoscale-demo
+  minReplicaCount: 1
+  maxReplicaCount: 10
+
+  # THIS IS WHAT MAKES KEDA GENERATE AN HPA
+  advanced:
+    horizontalPodAutoscalerConfig:
+      behavior:
+        scaleUp:
+          stabilizationWindowSeconds: 0
+          policies:
+          - type: Percent
+            value: 100
+            periodSeconds: 15
+        scaleDown:
+          stabilizationWindowSeconds: 0
+          policies:
+          - type: Percent
+            value: 100
+            periodSeconds: 15
+
+  triggers:
+  - type: prometheus
+    metadata:
+      serverAddress: "REPLACE_PROM_URL"
+      metricName: fake_queue_length
+      threshold: "10"
+      query: avg_over_time(fake_queue_length[1m])

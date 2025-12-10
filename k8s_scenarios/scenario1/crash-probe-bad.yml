@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: probe-bad
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: probe-bad } }
+  template:
+    metadata: { labels: { app: probe-bad } }
+    spec:
+      containers:
+      - name: web
+        image: nginx:stable
+        ports: [{ containerPort: 80 }]
+        livenessProbe:
+          httpGet:
+            path: /NOT_EXIST    # WRONG path -> will fail
+            port: 80
+          initialDelaySeconds: 10
+          periodSeconds: 2

@@ -1,0 +1,11 @@
+namespace: nginx-demo
+image:
+  repository: nginx
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+replicaCount: 2
+
+service:
+  type: ClusterIP
+  port: 80
