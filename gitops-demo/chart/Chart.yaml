@@ -1,0 +1,4 @@
+apiVersion: v2
+name: gitops-python-app
+version: 0.1.0
+appVersion: "1.0"

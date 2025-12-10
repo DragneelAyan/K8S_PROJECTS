@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gitops-python
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: gitops-python
+  template:
+    metadata:
+      labels:
+        app: gitops-python
+    spec:
+      containers:
+      - name: python-app
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        env:
+        - name: APP_MESSAGE
+          value: "{{ .Values.appMessage }}"
+        ports:
+        - containerPort: 8080

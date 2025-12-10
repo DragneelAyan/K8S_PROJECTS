@@ -1,0 +1,14 @@
+image:
+  repository: dragneelayan/gitops-python
+  tag: v1
+
+
+replicaCount: 1
+
+
+appMessage: "Hello from GitOps!"
+
+
+service:
+  type: NodePort
+  port: 8080
