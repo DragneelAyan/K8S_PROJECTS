@@ -1,0 +1,26 @@
+# gitops_secondTry
+
+A minimal GitOps project using ArgoCD and Kubernetes.
+
+## Structure
+
+app/
+- Flask web application
+- Dockerfile to build container image
+
+manifests/
+- Kubernetes manifests
+- Watched and reconciled by ArgoCD
+
+## GitOps Flow
+
+1. Build and push Docker image
+2. Update image tag in manifests
+3. Commit to Git
+4. ArgoCD syncs cluster state automatically
+
+## ArgoCD Configuration
+
+- Repo Path: manifests/
+- Namespace: default
+- Sync: Manual or Auto
